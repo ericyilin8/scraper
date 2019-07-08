@@ -43,7 +43,7 @@ mongoose.set('useFindAndModify', false);
 
 //html routes
 app.get("/", function(req, res) {
-  res.sendFile(path.join(dirname, "index.html"));
+  //res.sendFile(path.join(dirname, "index.html"));
  // res.render('index.html');
 //  db.Example.findAll({}).then(function(dbExamples) {
    
