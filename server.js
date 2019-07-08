@@ -58,7 +58,7 @@ app.get("*", function(req, res) {
 
 // A GET route for scraping the echoJS website
 app.get("/scrape", function (req, res) {
-  res.json('hi');
+  res.sendFile(path.join(dirname, "index.html"));
   // First, we grab the body of the html with axios
  
 });
