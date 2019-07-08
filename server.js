@@ -58,6 +58,7 @@ app.get("*", function(req, res) {
 
 // A GET route for scraping the echoJS website
 app.get("/scrape", function (req, res) {
+  console.log('hi');
   // First, we grab the body of the html with axios
   axios.get("https://www.foxnews.com/").then(function (response) {
     // Then, we load that into cheerio and save it to $ for a shorthand selector
