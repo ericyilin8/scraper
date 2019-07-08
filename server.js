@@ -50,14 +50,11 @@ app.get("/", function(req, res) {
   //});
 });
 
-// Render 404 page for any unmatched routes
-app.get("*", function(req, res) {
- res.json("404");
-});
+
 
 
 // A GET route for scraping the echoJS website
-app.get("scrape", function (req, res) {
+app.get("/scrape", function (req, res) {
   res.sendFile(path.join(dirname, "index.html"));
   // First, we grab the body of the html with axios
  
@@ -133,6 +130,11 @@ app.delete("/deleteNote/:id", function(req,res){
     res.json(err);
     })
 })
+
+// Render 404 page for any unmatched routes
+app.get("*", function(req, res) {
+  res.json("404");
+ });
 
 // Start the server
 app.listen(PORT, function () {
