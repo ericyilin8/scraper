@@ -39,7 +39,7 @@ mongoose.set('useFindAndModify', false);
 //attempt at article summary failed
 //plan was to grab the first paragraph of an article and use that
 
-
+//since not using anything to render, caused error
 
 //html routes
 app.get("/", function(req, res) {
@@ -57,7 +57,7 @@ app.get("*", function(req, res) {
 
 
 // A GET route for scraping the echoJS website
-app.get("/scrape", function (req, res) {
+app.get("scrape", function (req, res) {
   res.sendFile(path.join(dirname, "index.html"));
   // First, we grab the body of the html with axios
  
