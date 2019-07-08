@@ -2,11 +2,11 @@
 
 $.ajax({
   method: "GET",
-  url: "/scrape"
+  url: "scrape"
 }).then(function (response) {
 
   console.log(response);
-  $.getJSON("/articles", function (data) {
+  $.getJSON("articles", function (data) {
 
     console.log(data);
     // For each one
