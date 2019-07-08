@@ -1,6 +1,7 @@
 var express = require("express");
 var logger = require("morgan");
 var mongoose = require("mongoose");
+var path = require("path");
 
 // Our scraping tools
 // Axios is a promised-based http library, similar to jQuery's Ajax method
@@ -38,6 +39,21 @@ mongoose.set('useFindAndModify', false);
 //attempt at article summary failed
 //plan was to grab the first paragraph of an article and use that
 
+
+
+//html routes
+app.get("/", function(req, res) {
+  res.sendFile(path.join(dirname, "index.html"));
+ // res.render('index.html');
+//  db.Example.findAll({}).then(function(dbExamples) {
+   
+  //});
+});
+
+// Render 404 page for any unmatched routes
+app.get("*", function(req, res) {
+ // res.render("404");
+});
 
 
 // A GET route for scraping the echoJS website
