@@ -41,22 +41,91 @@ mongoose.set('useFindAndModify', false);
 
 //since not using anything to render, caused error
 
-//html routes
-app.get("/", function(req, res) {
+//html routes, don't need because ...
+//app.get("/", function(req, res) {
   //res.sendFile(path.join(dirname, "index.html"));
  // res.render('index.html');
 //  db.Example.findAll({}).then(function(dbExamples) {
    
   //});
-});
+//});
 
 
 
 
 // A GET route for scraping the echoJS website
 app.get("/scrape", function (req, res) {
-  res.sendFile(path.join(dirname, "index.html"));
+  //res.sendFile(path.join(dirname, "index.html"));, dirname should be __dirname
   // First, we grab the body of the html with axios
+  axios.get("https://www.foxnews.com/").then(function (response) {
+    // Then, we load that into cheerio and save it to $ for a shorthand selector
+    var $ = cheerio.load(response.data);
+    //console.log(response.data);
+    //console.log(response.data);
+    // Now, we grab every h2 within an article tag, and do the following:
+    $("article h2").each(function (i, element) {
+      // Save an empty result object
+      var result = {};
+
+      // Add the text and href of every link, and save them as properties of the result object
+      result.title = $(this)
+        .children("a")
+        .text();
+      result.link = $(this)
+        .children("a")
+        .attr("href");
+
+        console.log(result.link);
+        /*if(result.link.startsWith("http")){
+
+        }else{
+          result.link = "http:" + result.link;
+        }*/
+
+        db.Article.exists({ title: result.title }).then(function (response) {
+          if (response) {
+
+          } else {
+            db.Article.create(result)
+              .then(function (dbArticle) {
+                // View the added result in the console
+                console.log(dbArticle);
+              })
+              .catch(function (err) {
+                // If an error occurred, log it
+                //console.log(err);
+              });
+
+          }
+          res.send("Scrape Complete");
+        }).catch(function (err) {
+          //console.log(err);
+        })
+
+
+      /*axios.get(result.link).then(function (response) {
+
+        var $ = cheerio.load(response.data);
+
+        result.summary = $("p").text();
+
+
+
+
+      }).catch(function (error) {
+
+       // console.log(error);
+      })*/
+
+
+    });
+
+    // Send a message to the client
+    //res.send("Scrape Complete");
+  }).catch(function (error) {
+
+
+  });
  
 });
 
